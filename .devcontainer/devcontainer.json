@@ -47,6 +47,7 @@
             }
         }
     },
+    "appPort": ["8000:8000"],
     "postStartCommand": "pre-commit install",
     "remoteUser": "vscode"
 }
