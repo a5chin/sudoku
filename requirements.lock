@@ -11,7 +11,7 @@
 -e file:.
 annotated-types==0.7.0
     # via pydantic
-anyio==4.3.0
+anyio==4.4.0
     # via httpx
     # via starlette
     # via watchfiles
@@ -73,6 +73,8 @@ grpcio==1.64.0
     # via grpcio-status
 grpcio-status==1.62.2
     # via google-api-core
+gunicorn==22.0.0
+    # via sudoku
 h11==0.14.0
     # via httpcore
     # via uvicorn
@@ -132,6 +134,8 @@ opentelemetry-util-http==0.45b0
     # via opentelemetry-instrumentation-fastapi
 orjson==3.10.3
     # via fastapi
+packaging==24.0
+    # via gunicorn
 proto-plus==1.23.0
     # via google-api-core
     # via google-cloud-appengine-logging
@@ -147,6 +151,8 @@ protobuf==4.25.3
     # via grpc-google-iam-v1
     # via grpcio-status
     # via proto-plus
+psutil==5.9.8
+    # via sudoku
 pulp==2.8.0
     # via sudoku
 pyasn1==0.6.0
@@ -154,11 +160,11 @@ pyasn1==0.6.0
     # via rsa
 pyasn1-modules==0.4.0
     # via google-auth
-pydantic==2.7.1
+pydantic==2.7.2
     # via fastapi
     # via pydantic-settings
     # via sudoku
-pydantic-core==2.18.2
+pydantic-core==2.18.3
     # via pydantic
 pydantic-settings==2.2.1
     # via sudoku
@@ -171,7 +177,7 @@ python-multipart==0.0.9
     # via fastapi
 pyyaml==6.0.1
     # via uvicorn
-requests==2.32.2
+requests==2.32.3
     # via google-api-core
     # via opentelemetry-resourcedetector-gcp
 rich==13.7.1
@@ -200,17 +206,17 @@ ujson==5.10.0
     # via fastapi
 urllib3==2.2.1
     # via requests
-uvicorn==0.29.0
+uvicorn==0.30.0
     # via fastapi
     # via sudoku
 uvloop==0.19.0
     # via uvicorn
-watchfiles==0.21.0
+watchfiles==0.22.0
     # via uvicorn
 websockets==12.0
     # via uvicorn
 wrapt==1.16.0
     # via deprecated
     # via opentelemetry-instrumentation
-zipp==3.18.2
+zipp==3.19.0
     # via importlib-metadata

@@ -1,29 +1,22 @@
-FROM debian:bookworm-slim as builder
+ARG VARIANT=3.12
+FROM python:${VARIANT}
 
 WORKDIR /opt
+COPY pyproject.toml requirements.lock ./
 
-ENV RYE_HOME="/opt/rye"
-ENV PATH="$RYE_HOME/shims:$PATH"
+# hadolint ignore=DL3013,DL3042
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir -r requirements.lock
 
-# hadolint ignore=DL3008
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-        ca-certificates \
-        curl
+WORKDIR /
 
-SHELL [ "/bin/bash", "-o", "pipefail", "-c" ]
-RUN curl -sSf https://rye.astral.sh/get | RYE_INSTALL_OPTION="--yes" bash && \
-    rye config --set-bool behavior.global-python=true && \
-    rye config --set-bool behavior.use-uv=true
-
-COPY ./.python-version ./pyproject.toml ./requirements* ./
-RUN rye pin "$(cat .python-version)" && \
-    rye sync --no-dev
+COPY ./app /app
+COPY ./entrypoint.sh /
 
 
-FROM debian:bookworm-slim
-COPY --from=builder /opt/rye /opt/rye
+RUN chmod 755 /entrypoint.sh
+ENTRYPOINT [ "/entrypoint.sh" ]
 
-ENV RYE_HOME="/opt/rye"
-ENV PATH="$RYE_HOME/shims:$PATH"
 ENV PYTHONUNBUFFERED True
+
+EXPOSE 8080
