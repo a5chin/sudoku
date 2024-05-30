@@ -1,0 +1,162 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "Sudoku API",
+        "version": "0.0.1"
+    },
+    "paths": {
+        "/api/v1/solve": {
+            "get": {
+                "tags": [
+                    "solve"
+                ],
+                "summary": "Solve",
+                "description": "Solve Number Place.\n\nArgs:\n----\n    prob (Board): Query of the Number Place problem\n\nReturns:\n-------\n    ResultResponse: If the Number Place problem is not resolved, the result is None",
+                "operationId": "solve_api_v1_solve_get",
+                "parameters": [
+                    {
+                        "name": "prob",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "contentMediaType": "application/json",
+                            "contentSchema": {},
+                            "title": "Prob"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResultResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/healthz": {
+            "get": {
+                "tags": [
+                    "healthz"
+                ],
+                "summary": "Healthz",
+                "description": "Health Check Endpoint.\n\nReturns\n-------\n    dict[str, str]: Response of the Health Check Endpoint",
+                "operationId": "healthz_healthz_get",
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    },
+                                    "title": "Response Healthz Healthz Get"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "HTTPValidationError": {
+                "properties": {
+                    "errors": {
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationError"
+                        },
+                        "type": "array",
+                        "title": "Errors"
+                    }
+                },
+                "type": "object",
+                "title": "HTTPValidationError"
+            },
+            "ResultResponse": {
+                "properties": {
+                    "result": {
+                        "anyOf": [
+                            {
+                                "items": {
+                                    "items": {
+                                        "type": "integer"
+                                    },
+                                    "type": "array"
+                                },
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Result"
+                    },
+                    "is_solved": {
+                        "type": "boolean",
+                        "title": "Is Solved"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "result",
+                    "is_solved"
+                ],
+                "title": "ResultResponse",
+                "description": "Get answer model for Number Place.\n\nAttributes\n----------\n    result (list[list[int]]): The result of Number Place problem\n    is_solved (bool): Either problem is solved or not"
+            },
+            "ValidationError": {
+                "properties": {
+                    "loc": {
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        "type": "array",
+                        "title": "Location"
+                    },
+                    "msg": {
+                        "type": "string",
+                        "title": "Message"
+                    },
+                    "type": {
+                        "type": "string",
+                        "title": "Error Type"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "loc",
+                    "msg",
+                    "type"
+                ],
+                "title": "ValidationError"
+            }
+        }
+    }
+}

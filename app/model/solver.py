@@ -1,6 +1,6 @@
 import pulp
 
-from .board import Board
+from app.model.board import Board
 
 
 class Solver:
@@ -72,7 +72,7 @@ class Solver:
                 if (num := prob[row][col]) in values:
                     self.prob += self.x[row][col][num] == 1
 
-    def solve(self: "Solver", prob: list[list[int]]) -> None:
+    def solve(self: "Solver", prob: list[list[int]]) -> tuple[list[list[int]], bool]:
         """Solve the Number Place.
 
         Args:
@@ -82,8 +82,9 @@ class Solver:
 
         Returns:
         -------
-            Board: The solved Number Place cell if a solution exists.
-                   None: If no solution exists.
+            tuple[[list[list[int]]], bool]:
+                The solved Number Place cell if a solution exists.
+                None: If no solution exists.
 
         """
         self._add_constraints()
@@ -92,7 +93,7 @@ class Solver:
         self.prob.solve()
 
         if pulp.LpStatus[self.prob.status] != "Optimal":
-            return None
+            return None, False
 
         result = [
             [
@@ -106,4 +107,4 @@ class Solver:
             for row in range(Board.BOARD_SIZE)
         ]
 
-        return Board(result)
+        return Board(result).tolist(), True
