@@ -12,6 +12,7 @@ class Board(BaseModel):
     Attributes
     ----------
         model_config (ConfigDict): Configuration dictionary for the model.
+
         prob (list[list[int]]): A 9x9 grid representing the board with integer values.
 
     """

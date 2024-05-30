@@ -1,3 +1,4 @@
+from pydantic import ConfigDict
 from pydantic_settings import BaseSettings
 
 
@@ -6,6 +7,8 @@ class AppSettings(BaseSettings):
 
     Attributes
     ----------
+        model_config (ConfigDict): Configuration dictionary for the model.
+
         allowed_hosts (list[str]): List of allowed hosts. Defaults to ["*"].
         api_prefix_v1 (str): API prefix for version 1. Defaults to "/api/v1".
         debug (bool): Boolean flag for debug mode. Defaults to False.
@@ -28,11 +31,7 @@ class AppSettings(BaseSettings):
     title: str = "Sudoku API"
     version: str = "0.0.1"
 
-    class Config:
-        """Settings configuration options."""
-
-        env_file: str = ".env.development"
-        validate_assignment: bool = True
+    model_config = ConfigDict(env_file=".env.development", validate_assignment=True)
 
     @property
     def fastapi_kwargs(self: "AppSettings") -> dict[str, bool | str]:
