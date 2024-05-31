@@ -2,7 +2,7 @@ from enum import Enum
 
 from fastapi import APIRouter
 
-from app.api.routes import solve
+from app.api.routes import healthz, solve
 
 
 class Tags(Enum):
@@ -21,3 +21,4 @@ class Tags(Enum):
 
 router = APIRouter()
 router.include_router(router=solve.router, tags=[Tags.SOLVE], prefix="/solve")
+router.include_router(router=healthz.router, tags=[Tags.HEALTHZ], prefix="/healthz")

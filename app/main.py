@@ -7,7 +7,7 @@ from fastapi.exceptions import HTTPException, RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.errors import http422_error_handler, http_error_handler
-from app.api.routes import Tags, api_router, healthz_router
+from app.api.routes import api_router
 from app.core import get_app_settings
 from app.core.settings import AppSettings
 
@@ -67,7 +67,6 @@ def init_application() -> FastAPI:
     application.add_exception_handler(RequestValidationError, http422_error_handler)
 
     application.include_router(api_router, prefix=settings.api_prefix_v1)
-    application.include_router(healthz_router, tags=[Tags.HEALTHZ], prefix="/healthz")
 
     logger = getLogger(__name__)
     logger.info(settings)
