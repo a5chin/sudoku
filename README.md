@@ -8,6 +8,7 @@
     - [How to Start the Server](#how-to-start-the-server)
     - [POST with cURL](#post-with-curl)
   - [Appendix](#appendix)
+    - [Hierarchical Structure](#hierarchical-structure)
     - [Open Swagger UI](#open-swagger-ui)
 
 
@@ -54,6 +55,53 @@ curl -X 'GET' \
 
 
 ## Appendix
+
+### Hierarchical Structure
+```
+.
+├── app
+│   ├── api
+│   │   ├── errors
+│   │   │   ├── http_error.py
+│   │   │   ├── __init__.py
+│   │   │   └── validation_error.py
+│   │   └── routes
+│   │       ├── api.py
+│   │       ├── healthz.py
+│   │       ├── __init__.py
+│   │       └── solve.py
+│   ├── core
+│   │   ├── config.py
+│   │   ├── __init__.py
+│   │   └── settings
+│   │       ├── app.py
+│   │       └── __init__.py
+│   ├── __init__.py
+│   ├── main.py
+│   ├── model
+│   │   ├── board.py
+│   │   ├── __init__.py
+│   │   ├── schema
+│   │   │   ├── board.py
+│   │   │   ├── __init__.py
+│   │   │   └── response.py
+│   │   └── solver.py
+│   └── service
+│       ├── __init__.py
+│       └── solve.py
+├── Dockerfile
+├── entrypoint.sh
+├── LICENSE
+├── openapi.json
+├── pyproject.toml
+├── README.md
+├── requirements-dev.lock
+├── requirements.lock
+├── ruff.toml
+└── tests
+    └── test_solve.py
+```
+
 
 ### Open Swagger UI
 Access the following URL to develop using the Swagger UI.
