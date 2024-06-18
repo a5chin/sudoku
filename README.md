@@ -1,5 +1,7 @@
 # Sudoku
 
+![Result](/assets/images/result.png)
+
 - [Sudoku](#sudoku)
   - [Development Environment Setup](#development-environment-setup)
   - [Operation Check Procedure](#operation-check-procedure)
